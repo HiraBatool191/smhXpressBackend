@@ -1,16 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-require("./db"); // MongoDB connection
+require("./db");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Routes
 const signupRoute = require("./routes/signup");
-const signinRoute = require("./routes/signin");
+const loginRoute = require("./routes/login");
+const productsRoute = require("./routes/products");
 
-app.use("/api", signupRoute);   // /api/signup
-app.use("/api", signinRoute);   // /api/signin
+app.use("/api", signupRoute);
+app.use("/api", loginRoute);
+app.use("/api", productsRoute);
 
 app.get("/", (req, res) => res.send("Backend is working!"));
 
