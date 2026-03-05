@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "price": 50000,
+    "category": "Electronics",
+    "description": "High performance laptop with 16GB RAM and 512GB SSD.",
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
+  },
+  {
+    "id": 2,
+    "name": "Smartphone",
+    "price": 25000,
+    "category": "Electronics",
+    "description": "Latest smartphone with AMOLED display and 5G support.",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+  },
+  {
+    "id": 3,
+    "name": "Office Chair",
+    "price": 8000,
+    "category": "Furniture",
+    "description": "Ergonomic office chair with adjustable height.",
+    "image": "https://images.unsplash.com/photo-1582582494700-64c1f6b6d93b"
+  },
+  {
+    "id": 4,
+    "name": "Desk Table",
+    "price": 12000,
+    "category": "Furniture",
+    "description": "Solid wood desk table perfect for home office.",
+    "image": "https://images.unsplash.com/photo-1582582494711-39c5fcf2ebcd"
+  },
+  {
+    "id": 5,
+    "name": "Headphones",
+    "price": 6000,
+    "category": "Electronics",
+    "description": "Noise-cancelling over-ear headphones.",
+    "image": "https://images.unsplash.com/photo-1580894894514-4d485b73c8f7"
+  },
+  {
+    "id": 6,
+    "name": "T-shirt",
+    "price": 1200,
+    "category": "Clothing",
+    "description": "Cotton T-shirt available in multiple colors.",
+    "image": "https://images.unsplash.com/photo-1520975910547-8a0e7ffefcf2"
+  },
+  {
+    "id": 7,
+    "name": "Sneakers",
+    "price": 4000,
+    "category": "Clothing",
+    "description": "Comfortable running sneakers for daily wear.",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+  },
+  {
+    "id": 8,
+    "name": "Backpack",
+    "price": 3000,
+    "category": "Accessories",
+    "description": "Durable backpack with multiple compartments.",
+    "image": "https://images.unsplash.com/photo-1593032465170-bd5a7f34b0f3"
+  },
+  {
+    "id": 9,
+    "name": "Smartwatch",
+    "price": 10000,
+    "category": "Electronics",
+    "description": "Smartwatch with health tracking and notifications.",
+    "image": "https://images.unsplash.com/photo-1598887142480-4b14d90a5c41"
+  },
+  {
+    "id": 10,
+    "name": "Bookshelf",
+    "price": 7000,
+    "category": "Furniture",
+    "description": "Wooden bookshelf with 5 shelves.",
+    "image": "https://images.unsplash.com/photo-1582582494720-2f7bcb59d780"
+  }
+]

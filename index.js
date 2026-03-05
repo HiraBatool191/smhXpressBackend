@@ -29,15 +29,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Routes
 const signupRoute = require("./routes/signup");
-const signinRoute = require("./routes/signin");
+const loginRoute = require("./routes/login");
+const productsRoute = require("./routes/products");
 
 app.use("/api", signupRoute);
-app.use("/api", signinRoute);
+// app.use("/api", signinRoute);
 
-app.get("/", (req, res) => {
-  res.send("Backend is working!");
-});
+app.get("/", (req, res) => res.send("Backend is working!"));
 
 // ✅ IMPORTANT CHANGE HERE
 const PORT = process.env.PORT || 5000;
