@@ -35,6 +35,8 @@ const loginRoute = require("./routes/login");
 const productsRoute = require("./routes/products");
 
 app.use("/api", signupRoute);
+app.use("/api", loginRoute);
+app.use("/api", productsRoute);
 // app.use("/api", signinRoute);
 
 app.get("/", (req, res) => res.send("Backend is working!"));
