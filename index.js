@@ -62,10 +62,10 @@ const signupRoute = require("./routes/signup");
 const loginRoute = require("./routes/login");
 const productsRoute = require("./routes/products");
 
-// Mount routes with clear prefixes
-app.use("/api/signup", signupRoute);
-app.use("/api/login", loginRoute);
-app.use("/api/products", productsRoute);
+app.use("/api", signupRoute);
+app.use("/api", loginRoute);
+app.use("/api", productsRoute);
+// app.use("/api", signinRoute);
 
 app.get("/", (req, res) => res.send("Backend is working!"));
 
