@@ -51,7 +51,7 @@ const resetPasswordRoute = require("./routes/resetPassword");
 
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
-app.use("/api", productsRoute);           // ✅ FIX: /api/products → route mein /products hai
+app.use("/api", productsRoute);           
 app.use("/api/send-otp", sendOtpRoute);
 app.use("/api/verify-otp", verifyOtpRoute);
 app.use("/api/reset-password", resetPasswordRoute);
