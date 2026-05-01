@@ -1,50 +1,13 @@
-// // const express = require("express");
-// // const bcrypt = require("bcryptjs");
-// // const jwt = require("jsonwebtoken");
-// // const User = require("../models/User");
-// // const router = express.Router();
-
-
-// // router.post("/login", async (req, res) => {
-// //   try {
-// //     const { email, password } = req.body;
-
-// //     const user = await User.findOne({ email });
-// //     if (!user) return res.status(400).json({ message: "Invalid credentials" });
-
-// //     const isMatch = await bcrypt.compare(password, user.password);
-// //     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
-
-// //     const token = jwt.sign({ id: user._id, email: user.email }, "secretKey123", { expiresIn: "1h" });
-
-// //     res.json({
-// //       message: "Login successful",
-// //       user: {
-// //         id: user._id,
-// //         name: user.name,
-// //         email: user.email,
-// //         avatar: user.name.charAt(0) 
-// //       },
-// //       token
-// //     });
-// //   } catch (err) {
-// //     console.error(err);
-// //     res.status(500).json({ message: "Server error" });
-// //   }
-// // });
-
-// // module.exports = router;
-
 // const express = require("express");
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
 // const User = require("../models/User");
 // const router = express.Router();
 
-// // POST /api/login
+
 // router.post("/", async (req, res) => {
 //   try {
-//     const { email, password } = req.body;
+//     const { email, password } = req.body; 
 
 //     const user = await User.findOne({ email });
 //     if (!user) return res.status(400).json({ message: "Invalid credentials" });
@@ -60,7 +23,7 @@
 //         id: user._id,
 //         name: user.name,
 //         email: user.email,
-//         avatar: user.name.charAt(0)
+//         avatar: user.name.charAt(0) 
 //       },
 //       token
 //     });
@@ -72,40 +35,44 @@
 
 // module.exports = router;
 
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
 
-const router = express.Router();
+  const express = require("express");
+  const bcrypt = require("bcryptjs");
+  const jwt = require("jsonwebtoken");
+  const User = require("../models/User");
+  const router = express.Router();
 
-// POST /api/login
-router.post("/", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  router.post("/", async (req, res) => {
+    try {
+      const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid credentials" });
+      const user = await User.findOne({ email });
+      if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+      const token = jwt.sign(
+        { id: user._id, email: user.email },
+        process.env.JWT_SECRET || "secretKey123",  // ✅ env se le raha hai
+        { expiresIn: "7d" }
+      );
 
-    res.json({
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        avatar: user.name.charAt(0)
-      },
-      token
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+      res.json({
+        message: "Login successful",
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          avatar: user.name.charAt(0),
+        },
+        token,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 
-module.exports = router;
+  module.exports = router;

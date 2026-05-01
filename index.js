@@ -8,27 +8,25 @@
 // app.use(cors());
 // app.use(express.json());
 
-// // ================= ROUTES =================
+// // Routes
 // const signupRoute = require("./routes/signup");
 // const loginRoute = require("./routes/login");
 // const productsRoute = require("./routes/products");
-// const dashboardRoute = require("./routes/dashboard");
-// const usersRoute = require("./routes/users");
+// const sendOtpRoute = require("./routes/Otp");
+// const verifyOtpRoute = require("./routes/verifyOtp");
+// const resetPasswordRoute = require("./routes/resetPassword");
 
-// // ================= MOUNT ROUTES =================
 // app.use("/api/signup", signupRoute);
 // app.use("/api/login", loginRoute);
 // app.use("/api/products", productsRoute);
-// app.use("/api/dashboard", dashboardRoute);
-// app.use("/api/users", usersRoute);
+// app.use("/api/send-otp", sendOtpRoute);
+// app.use("/api/verify-otp", verifyOtpRoute);
+// app.use("/api/reset-password", resetPasswordRoute);
 
-// // ================= ROOT =================
-// app.get("/", (req, res) => {
-//   res.send("Backend is working!");
-// });
+// app.get("/", (req, res) => res.send("Backend is working!"));
 
-// // ================= SERVER =================
 // const PORT = process.env.PORT || 5000;
+
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
@@ -48,22 +46,22 @@ app.use(express.json());
 const signupRoute = require("./routes/signup");
 const loginRoute = require("./routes/login");
 const productsRoute = require("./routes/products");
-const dashboardRoute = require("./routes/dashboard");
-const usersRoute = require("./routes/users");
+const sendOtpRoute = require("./routes/Otp");
+const verifyOtpRoute = require("./routes/verifyOtp");
+const resetPasswordRoute = require("./routes/resetPassword");
 
-// ========== MOUNT ROUTES ==========
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
-app.use("/api/products", productsRoute);
-app.use("/api/dashboard", dashboardRoute);
-app.use("/api/users", usersRoute);
+app.use("/api", productsRoute);           
+app.use("/api/send-otp", sendOtpRoute);
+app.use("/api/verify-otp", verifyOtpRoute);
+app.use("/api/reset-password", resetPasswordRoute);
 
 // ========== HOME ==========
 app.get("/", (req, res) => {
   res.send("Backend is working!");
 });
 
-// ========== SERVER ==========
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
