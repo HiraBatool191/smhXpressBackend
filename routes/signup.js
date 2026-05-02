@@ -33,7 +33,7 @@ const User = require("../models/User"); // Make sure this file exists
 const router = express.Router();
 
 // SIGNUP
-router.post("/signup", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
 

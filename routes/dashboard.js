@@ -1,64 +1,84 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
 
-// ================= STATS =================
+const User = require("../models/User");
+const Product = require("../models/Product");
+const Activity = require("../models/Activity");
+
+
+// ===================== STATS =====================
 router.get("/stats", async (req, res) => {
   try {
-    const users = await User.countDocuments();
-
-    const orders = 120;
-    const revenue = 50000;
-    const active = Math.floor(users * 0.25);
+    const usersCount = await User.countDocuments();
+    const productsCount = await Product.countDocuments();
 
     res.json({
-      users,
-      active,
-      orders,
-      revenue
+      users: usersCount,
+      active: Math.floor(usersCount * 0.3),
+      orders: Math.floor(productsCount * 1.5),
+      revenue: productsCount * 500,
     });
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Stats error", error });
   }
 });
 
-// ================= TOP PRODUCTS =================
-router.get("/top-products", (req, res) => {
-  res.json([
-    { name: "Laptop", views: 200 },
-    { name: "Phone", views: 150 },
-    { name: "Shoes", views: 120 },
-    { name: "Watch", views: 90 }
-  ]);
-});
 
-// ================= ACTIVITY =================
-router.get("/activity", (req, res) => {
-  res.json([
-    { user: "Ali", action: "viewed Laptop" },
-    { user: "Sara", action: "added Phone to cart" },
-    { user: "Ahmed", action: "zoomed Shoes" }
-  ]);
-});
-
-// ================= CHART =================
-router.get("/chart", (req, res) => {
-  res.json([
-    { name: "Mon", users: 30 },
-    { name: "Tue", users: 50 },
-    { name: "Wed", users: 40 },
-    { name: "Thu", users: 70 },
-    { name: "Fri", users: 90 }
-  ]);
-});
-
-// ================= USERS LIST (IMPORTANT) =================
+// ===================== USERS =====================
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find().select("name email");
     res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
+  } catch (error) {
+    res.status(500).json({ message: "Users error", error });
+  }
+});
+
+
+// ===================== TOP PRODUCTS =====================
+router.get("/top-products", async (req, res) => {
+  try {
+    const products = await Product.find()
+      .sort({ views: -1 })
+      .limit(5);
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Products error", error });
+  }
+});
+
+
+// ===================== ACTIVITY =====================
+router.get("/activity", async (req, res) => {
+  try {
+    const activity = await Activity.find()
+      .sort({ createdAt: -1 })
+      .limit(10);
+
+    res.json(activity);
+  } catch (error) {
+    res.status(500).json({ message: "Activity error", error });
+  }
+});
+
+
+// ===================== CHART =====================
+router.get("/chart", async (req, res) => {
+  try {
+    // Example: future me DB-based aggregation ho sakta hai
+    res.json([
+      { name: "Mon", value: 0 },
+      { name: "Tue", value: 0 },
+      { name: "Wed", value: 0 },
+      { name: "Thurs", value: 0 },
+      { name: "Fri", value: 0 },
+      { name: "Sat", value: 0 },
+      { name: "Sun", value: 0 },
+    ]);
+  } catch (error) {
+    res.status(500).json({ message: "Chart error", error });
   }
 });
 
