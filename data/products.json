@@ -4,7 +4,7 @@
     "name": "Laptop",
     "price": 50000,
     "category": "Electronics",
-    "description": "High-performance laptop designed for smooth multitasking and heavy workloads. Comes with 16GB RAM and 512GB SSD storage for fast performance and ample space. Ideal for work, study, and professional use.",
+    "description": "High-performance laptop designed for smooth multitasking and heavy workloads.",
     "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Smartphone",
     "price": 25000,
     "category": "Electronics",
-    "description": "Modern smartphone with a vibrant AMOLED display and smooth performance. Supports 5G connectivity for fast browsing and streaming. Perfect for daily use, photography, and entertainment.",
+    "description": "Modern smartphone with a vibrant AMOLED display and smooth performance.",
     "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Office Chair",
     "price": 8000,
     "category": "Furniture",
-    "description": "Comfortable ergonomic office chair designed for long working hours. Adjustable height and supportive backrest reduce strain on posture. Ideal for home or office setup.",
+    "description": "Comfortable ergonomic office chair designed for long working hours.",
     "image": "https://images.unsplash.com/photo-1582582494700-64c1f6b6d93b"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Desk Table",
     "price": 12000,
     "category": "Furniture",
-    "description": "Strong and durable wooden desk perfect for office or study use. Offers a spacious surface for laptop, books, and accessories. Simple and elegant design fits any room setup.",
+    "description": "Strong and durable wooden desk perfect for office or study use.",
     "image": "https://images.unsplash.com/photo-1582582494711-39c5fcf2ebcd"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Headphones",
     "price": 6000,
     "category": "Electronics",
-    "description": "High-quality noise-cancelling headphones for immersive sound experience. Delivers deep bass and clear audio for music and calls. Comfortable design for long listening sessions.",
+    "description": "High-quality noise-cancelling headphones for immersive sound experience.",
     "image": "https://images.unsplash.com/photo-1580894894514-4d485b73c8f7"
   },
   {
@@ -44,7 +44,7 @@
     "name": "T-shirt",
     "price": 1200,
     "category": "Clothing",
-    "description": "Soft cotton T-shirt designed for everyday comfort and style. Lightweight and breathable fabric suitable for all seasons. Available in multiple colors and sizes.",
+    "description": "Soft cotton T-shirt designed for everyday comfort and style.",
     "image": "https://images.unsplash.com/photo-1520975910547-8a0e7ffefcf2"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Sneakers",
     "price": 4000,
     "category": "Clothing",
-    "description": "Stylish and comfortable sneakers made for daily wear and walking. Lightweight sole provides excellent grip and support. Perfect for casual outings and sports activities.",
+    "description": "Stylish and comfortable sneakers made for daily wear and walking.",
     "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
   },
   {
@@ -60,7 +60,7 @@
     "name": "Backpack",
     "price": 3000,
     "category": "Accessories",
-    "description": "Durable backpack with multiple compartments for organized storage. Lightweight yet strong material suitable for travel or school use. Comfortable straps for easy carrying.",
+    "description": "Durable backpack with multiple compartments for organized storage.",
     "image": "https://images.unsplash.com/photo-1593032465170-bd5a7f34b0f3"
   },
   {
@@ -68,7 +68,7 @@
     "name": "Smartwatch",
     "price": 10000,
     "category": "Electronics",
-    "description": "Smartwatch with advanced health tracking and notification features. Monitors heart rate, steps, and daily activity with ease. Stylish design suitable for all occasions.",
+    "description": "Smartwatch with advanced health tracking and notification features.",
     "image": "https://images.unsplash.com/photo-1598887142480-4b14d90a5c41"
   },
   {
@@ -76,7 +76,7 @@
     "name": "Bookshelf",
     "price": 7000,
     "category": "Furniture",
-    "description": "Elegant wooden bookshelf with 5 spacious shelves for storage. Perfect for organizing books, decor, and office items. Strong build quality with a modern design.",
+    "description": "Elegant wooden bookshelf with 5 spacious shelves for storage.",
     "image": "https://images.unsplash.com/photo-1582582494720-2f7bcb59d780"
   }
 ]
