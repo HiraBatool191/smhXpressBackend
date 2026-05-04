@@ -44,6 +44,7 @@ router.get("/top-products", async (req, res) => {
       .limit(5);
 
     res.json(products);
+
   } catch (error) {
     res.status(500).json({ message: "Products error", error });
   }
@@ -53,16 +54,22 @@ router.get("/top-products", async (req, res) => {
 // ===================== ACTIVITY =====================
 router.get("/activity", async (req, res) => {
   try {
-    const activity = await Activity.find()
+    const data = await Activity.find()
       .sort({ createdAt: -1 })
-      .limit(10);
+      .limit(20);
 
-    res.json(activity);
+    const result = data.map(item => ({
+      date: item.createdAt.toISOString().split("T")[0],
+      user: item.user,
+      action: item.action,
+    }));
+
+    res.json(result);
+
   } catch (error) {
     res.status(500).json({ message: "Activity error", error });
   }
-});
-
+})
 
 // ===================== CHART =====================
 router.get("/chart", async (req, res) => {
