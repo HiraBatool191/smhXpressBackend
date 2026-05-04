@@ -1,10 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const { sendOTPEmail } = require("../utils/sendEmail");
+const User = require("../models/User"); // Make sure this file exists
 const router = express.Router();
 
+// SIGNUP
 router.post("/", async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
@@ -13,10 +12,8 @@ router.post("/", async (req, res) => {
     if (existing) return res.status(400).json({ message: "User already exists" });
 
     const hashed = await bcrypt.hash(password, 10);
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
-    const user = new User({ name, email, password: hashed, phone, otp, otpExpiry });
+    const user = new User({ name, email, password: hashed });
     await user.save();
 
     console.log("USER SAVED, NOW SENDING EMAIL...");

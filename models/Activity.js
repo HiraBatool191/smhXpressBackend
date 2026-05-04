@@ -1,0 +1,12 @@
+const mongoose = require("mongoose");
+
+const activitySchema = new mongoose.Schema({
+  user: String,
+  action: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+module.exports = mongoose.model("Activity", activitySchema);
