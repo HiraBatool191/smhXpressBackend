@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -7,8 +6,9 @@ require("./db");
 const app = express();
 
 // middlewares
-app.use(cors());
+app.use(cors()); // 🔥 missing tha tumhare code me
 app.use(express.json());
+
 
 // ========== ROUTES ==========
 const signupRoute = require("./routes/signup");
@@ -17,23 +17,26 @@ const productsRoute = require("./routes/products");
 const sendOtpRoute = require("./routes/otp");
 const verifyOtpRoute = require("./routes/verifyOtp");
 const resetPasswordRoute = require("./routes/resetPassword");
-
-// 👉 ADD THIS (Dashboard API)
 const dashboardRoute = require("./routes/dashboard");
+const cartRoute = require("./routes/cart"); // 🔥 ADD HERE
 
-// routes setup
+
+// ========== ROUTE MIDDLEWARE ==========
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/products", productsRoute);
-app.use("/api/dashboard", dashboardRoute);   // ✅ IMPORTANT FIX
+app.use("/api/dashboard", dashboardRoute);
+app.use("/api/cart", cartRoute); // 🔥 CLEAN PLACE
 app.use("/api/send-otp", sendOtpRoute);
 app.use("/api/verify-otp", verifyOtpRoute);
 app.use("/api/reset-password", resetPasswordRoute);
+
 
 // home route
 app.get("/", (req, res) => {
   res.send("Backend is working!");
 });
+
 
 // start server
 const PORT = process.env.PORT || 5000;

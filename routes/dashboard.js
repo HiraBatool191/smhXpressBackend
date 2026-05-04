@@ -67,19 +67,38 @@ router.get("/activity", async (req, res) => {
 // ===================== CHART =====================
 router.get("/chart", async (req, res) => {
   try {
-    // Example: future me DB-based aggregation ho sakta hai
-    res.json([
-      { name: "Mon", value: 0 },
-      { name: "Tue", value: 0 },
-      { name: "Wed", value: 0 },
-      { name: "Thurs", value: 0 },
-      { name: "Fri", value: 0 },
-      { name: "Sat", value: 0 },
-      { name: "Sun", value: 0 },
-    ]);
-  } catch (error) {
-    res.status(500).json({ message: "Chart error", error });
-  }
-});
+    const last7Days = new Date();
+    last7Days.setDate(last7Days.getDate() - 6);
 
+    const data = await Activity.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: last7Days }
+        }
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
+          },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { _id: 1 }
+      }
+    ]);
+
+    const result = data.map(item => ({
+      name: item._id,
+      value: item.count
+    }));
+
+    res.json(result);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Chart error" });
+  }
+})
 module.exports = router;
