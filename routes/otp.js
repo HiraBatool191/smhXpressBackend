@@ -20,7 +20,6 @@ router.post("/", async (req, res) => {
       console.log(`✅ OTP email sent to: ${email}`);
     } catch (emailErr) {
       console.error("❌ Email send failed:", emailErr.message);
-      console.log(`📧 OTP (fallback) for ${email}: ${otp}`);
     }
 
     res.json({ message: "OTP sent successfully" });
