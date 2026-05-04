@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
   }
 };
 
-router.get("/products", (req, res) => {
+router.get("/", (req, res) => {
   res.json(products);
 });
 
