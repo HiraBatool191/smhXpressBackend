@@ -4,7 +4,7 @@
     "name": "Laptop",
     "price": 50000,
     "category": "Electronics",
-    "description": "High-performance laptop designed for smooth multitasking and heavy workloads.",
+    "description": "High-performance laptop designed for smooth multitasking, coding, and heavy workloads with fast SSD and long battery life.",
     "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
   },
   {
@@ -12,71 +12,119 @@
     "name": "Smartphone",
     "price": 25000,
     "category": "Electronics",
-    "description": "Modern smartphone with a vibrant AMOLED display and smooth performance.",
+    "description": "Modern smartphone with AMOLED display, fast processor, and high-resolution camera for daily use and gaming.",
     "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
   },
   {
     "id": 3,
-    "name": "Office Chair",
-    "price": 8000,
-    "category": "Furniture",
-    "description": "Comfortable ergonomic office chair designed for long working hours.",
-    "image": "https://images.unsplash.com/photo-1582582494700-64c1f6b6d93b"
-  },
-  {
-    "id": 4,
-    "name": "Desk Table",
-    "price": 12000,
-    "category": "Furniture",
-    "description": "Strong and durable wooden desk perfect for office or study use.",
-    "image": "https://images.unsplash.com/photo-1582582494711-39c5fcf2ebcd"
-  },
-  {
-    "id": 5,
     "name": "Headphones",
     "price": 6000,
     "category": "Electronics",
-    "description": "High-quality noise-cancelling headphones for immersive sound experience.",
+    "description": "Noise-cancelling wireless headphones with deep bass and crystal-clear sound quality.",
     "image": "https://images.unsplash.com/photo-1580894894514-4d485b73c8f7"
   },
   {
-    "id": 6,
-    "name": "T-shirt",
-    "price": 1200,
-    "category": "Clothing",
-    "description": "Soft cotton T-shirt designed for everyday comfort and style.",
-    "image": "https://images.unsplash.com/photo-1520975910547-8a0e7ffefcf2"
-  },
-  {
-    "id": 7,
-    "name": "Sneakers",
-    "price": 4000,
-    "category": "Clothing",
-    "description": "Stylish and comfortable sneakers made for daily wear and walking.",
-    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
-  },
-  {
-    "id": 8,
-    "name": "Backpack",
-    "price": 3000,
-    "category": "Accessories",
-    "description": "Durable backpack with multiple compartments for organized storage.",
-    "image": "https://images.unsplash.com/photo-1593032465170-bd5a7f34b0f3"
-  },
-  {
-    "id": 9,
+    "id": 4,
     "name": "Smartwatch",
     "price": 10000,
     "category": "Electronics",
-    "description": "Smartwatch with advanced health tracking and notification features.",
+    "description": "Advanced smartwatch with fitness tracking, heart rate monitor, and notifications sync.",
     "image": "https://images.unsplash.com/photo-1598887142480-4b14d90a5c41"
   },
   {
-    "id": 10,
+    "id": 5,
+    "name": "Office Chair",
+    "price": 8000,
+    "category": "Furniture",
+    "description": "Ergonomic office chair with lumbar support, breathable mesh, and adjustable height.",
+    "image": "https://images.unsplash.com/photo-1582582494700-64c1f6b6d93b"
+  },
+  {
+    "id": 6,
+    "name": "Desk Table",
+    "price": 12000,
+    "category": "Furniture",
+    "description": "Durable wooden desk perfect for study, office work, or gaming setup.",
+    "image": "https://images.unsplash.com/photo-1582582494711-39c5fcf2ebcd"
+  },
+  {
+    "id": 7,
     "name": "Bookshelf",
     "price": 7000,
     "category": "Furniture",
-    "description": "Elegant wooden bookshelf with 5 spacious shelves for storage.",
+    "description": "Modern 5-tier bookshelf with strong build and elegant design for home decor.",
     "image": "https://images.unsplash.com/photo-1582582494720-2f7bcb59d780"
-  }
+  },
+  {
+    "id": 8,
+    "name": "T-shirt",
+    "price": 1200,
+    "category": "Clothing",
+    "description": "Premium cotton T-shirt with soft fabric, breathable material, and stylish fit.",
+    "image": "https://images.unsplash.com/photo-1520975910547-8a0e7ffefcf2"
+  },
+  {
+    "id": 9,
+    "name": "Sneakers",
+    "price": 4000,
+    "category": "Clothing",
+    "description": "Comfortable sneakers designed for walking, running, and casual wear.",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+  },
+  {
+    "id": 10,
+    "name": "Jacket",
+    "price": 5500,
+    "category": "Clothing",
+    "description": "Stylish winter jacket with warm insulation and modern design.",
+    "image": "https://images.unsplash.com/photo-1548883354-7622d03aca27"
+  },
+  {
+    "id": 11,
+    "name": "Backpack",
+    "price": 3000,
+    "category": "Accessories",
+    "description": "Spacious backpack with multiple compartments, ideal for travel and daily use.",
+    "image": "https://images.unsplash.com/photo-1593032465170-bd5a7f34b0f3"
+  },
+  {
+    "id": 12,
+    "name": "Sunglasses",
+    "price": 1500,
+    "category": "Accessories",
+    "description": "Stylish UV-protected sunglasses for outdoor use and fashion.",
+    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083"
+  },
+  {
+    "id": 13,
+    "name": "Handbag",
+    "price": 3500,
+    "category": "Accessories",
+    "description": "Elegant handbag with premium finish and spacious interior.",
+    "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3"
+  },
+  {
+    "id": 14,
+    "name": "Coffee Maker",
+    "price": 9000,
+    "category": "Home Appliances",
+    "description": "Automatic coffee maker with fast brewing and rich flavor extraction.",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+  },
+  {
+    "id": 15,
+    "name": "Air Fryer",
+    "price": 11000,
+    "category": "Home Appliances",
+    "description": "Healthy air fryer for oil-free cooking with crispy and delicious results.",
+    "image": "https://images.unsplash.com/photo-1604908176997-431c85c5c3f3"
+  },
+  {
+  "id": 16,
+  "name": "Football",
+  "price": 2000,
+  "category": "Sports",
+  "description": "Professional football for outdoor games.",
+  "image": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d"
+}
 ]
