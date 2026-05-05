@@ -20,6 +20,7 @@ const dashboardRoute = require("./routes/dashboard");
 const cartRoute = require("./routes/cart");
 const trackRoute = require("./routes/track");
 const messageRoute = require("./routes/messages");
+const paymentRoute = require("./routes/payment");
 
 
 // ========== ROUTE MIDDLEWARE ==========
@@ -33,6 +34,7 @@ app.use("/api/verify-otp", verifyOtpRoute);
 app.use("/api/reset-password", resetPasswordRoute);
 app.use("/api", trackRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/payment", paymentRoute);
 
 
 // home route
