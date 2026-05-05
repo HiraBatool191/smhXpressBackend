@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User"); // Make sure this file exists
 const router = express.Router();
+const sendOTPEmail = require("../utils/sendEmail");
+const jwt = require("jsonwebtoken");
 
 // SIGNUP
 router.post("/", async (req, res) => {
