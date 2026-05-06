@@ -54,25 +54,32 @@
 
 
 // routes/signup.js
+
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { sendOTPEmail } = require("../utils/sendEmail"); // ✅ import add kiya
+const { sendOTPEmail } = require("../utils/sendEmail.js");
+
 const router = express.Router();
 
+
 router.post("/", async (req, res) => {
+    console.log("🔥 SIGNUP API HIT"); // 👈 YAHAN
+
   try {
     const { name, email, password, phone } = req.body;
 
     const existing = await User.findOne({ email });
-    if (existing) return res.status(400).json({ message: "User already exists" });
+    if (existing) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
     const hashed = await bcrypt.hash(password, 10);
 
-    // ✅ OTP generate karo
+    // ✅ OTP generate
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
     const user = new User({
       name,
@@ -82,14 +89,16 @@ router.post("/", async (req, res) => {
       otp,
       otpExpiry,
     });
+
     await user.save();
 
-    // ✅ Email bhejo
-    try {
-      await sendOTPEmail(email, otp);
+    // ✅ Send email (ONLY ONCE)
+    const isSent = await sendOTPEmail(email, otp);
+
+    if (isSent) {
       console.log(`✅ OTP email sent to: ${email}`);
-    } catch (emailErr) {
-      console.error("❌ Email send failed:", emailErr.message);
+    } else {
+      console.log("⚠️ OTP email failed but user created");
     }
 
     const token = jwt.sign(
@@ -109,6 +118,7 @@ router.post("/", async (req, res) => {
       },
       token,
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
