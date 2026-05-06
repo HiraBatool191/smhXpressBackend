@@ -14,25 +14,30 @@ router.get("/users-with-activity", async (req, res) => {
     const result = await Promise.all(
       users.map(async (user) => {
 
-        // ✅ FIX: proper DB query (no filter bug)
-        const userActivity = await Activity.find({ userId: user._id });
+        const activities = await Activity.find({ userId: user._id });
 
-        const timeSpent = userActivity.reduce(
-          (sum, a) => sum + (a.timeSpent || 0),
+        const timeSpent = activities.reduce(
+          (sum, a) => sum + Number(a.timeSpent || 0),
           0
         );
 
-       const zoomCount = userActivity.reduce(
-  (sum, a) => sum + (a.zoomCount || 0),
-  0
-);
+        const zoomCount = activities.reduce(
+          (sum, a) => sum + Number(a.zoomCount || 0),
+          0
+        );
+
+        // 🔥 FIX: ALL PRODUCTS SHOW
+        const productNames = activities.length
+          ? [...new Set(activities.map(a => a.productName))].join(", ")
+          : "—";
+
         return {
           _id: user._id,
           name: user.name,
           email: user.email,
           timeSpent,
           zoomCount,
-          productName: userActivity.at(-1)?.productName || "—",
+          productName: productNames,
         };
       })
     );
@@ -43,15 +48,36 @@ router.get("/users-with-activity", async (req, res) => {
   }
 });
 
-// ===================== STATS =====================
+// ===================== STATS (🔥 FIXED REAL ACTIVE USERS) =====================
 router.get("/stats", async (req, res) => {
   try {
-    const usersCount = await User.countDocuments();
+    const users = await User.find();
+    const usersCount = users.length;
     const productsCount = await Product.countDocuments();
+
+    // 🔥 activity group
+    const activityData = await Activity.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          totalTime: { $sum: "$timeSpent" },
+          totalZoom: { $sum: "$zoomCount" },
+        },
+      },
+    ]);
+
+    // 🔥 VALID USERS ONLY
+    const userIds = users.map(u => u._id.toString());
+
+    const activeUsers = activityData.filter(
+      (a) =>
+        userIds.includes(a._id.toString()) &&
+        (a.totalTime > 0 || a.totalZoom > 0)
+    );
 
     res.json({
       users: usersCount,
-      active: Math.floor(usersCount * 0.3),
+      active: activeUsers.length, // ✅ FIXED
       orders: Math.floor(productsCount * 1.5),
       revenue: productsCount * 500,
     });
@@ -95,9 +121,9 @@ router.get("/activity", async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(20);
 
-    const result = data.map(item => ({
+    const result = data.map((item) => ({
       date: item.createdAt.toISOString().split("T")[0],
-      user: item.user,
+      user: item.userId, // 🔥 FIXED (was wrong before)
       action: item.action,
     }));
 
@@ -118,33 +144,30 @@ router.get("/chart", async (req, res) => {
     const data = await Activity.aggregate([
       {
         $match: {
-          createdAt: { $gte: last7Days }
-        }
+          createdAt: { $gte: last7Days },
+        },
       },
       {
         $group: {
           _id: {
-            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
+            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
           },
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
       },
-      {
-        $sort: { _id: 1 }
-      }
+      { $sort: { _id: 1 } },
     ]);
 
-    const result = data.map(item => ({
-      name: item._id,
-      value: item.count
-    }));
-
-    res.json(result);
+    res.json(
+      data.map((item) => ({
+        name: item._id,
+        value: item.count,
+      }))
+    );
 
   } catch (err) {
     res.status(500).json({ message: "Chart error" });
   }
 });
-
 
 module.exports = router;

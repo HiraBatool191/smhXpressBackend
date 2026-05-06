@@ -1,8 +1,46 @@
-const express = require("express");
-const router = express.Router();
-const Activity = require("../models/Activity");
+// const express = require("express");
+// const Activity = require("../models/Activity");
+// const router = express.Router();
 
-router.post("/track", async (req, res) => {
+// router.post("/track", async (req, res) => {
+//   try {
+//     const {
+//       userId,
+//       productId,
+//       productName,
+//       timeSpent = 0,
+//       zoomCount = 0,
+//       action,
+//     } = req.body;
+
+//     if (!userId) {
+//       return res.status(400).json({ message: "userId required" });
+//     }
+
+//     const activity = await Activity.create({
+//       userId,
+//       productId,
+//       productName,
+//       timeSpent: Number(timeSpent),
+//       zoomCount: Number(zoomCount),
+//       action,
+//     });
+
+//     res.json(activity);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// module.exports = router;
+
+
+// routes/track.js
+const express = require("express");
+const Activity = require("../models/Activity");
+const router = express.Router();
+
+router.post("/", async (req, res) => {
   try {
     const {
       userId,
@@ -14,21 +52,22 @@ router.post("/track", async (req, res) => {
     } = req.body;
 
     if (!userId) {
-      return res.status(400).json({ message: "userId missing" });
+      return res.status(400).json({ message: "userId required" });
     }
 
-    const activity = await Activity.create({
+    await Activity.create({
       userId,
       productId,
       productName,
-      timeSpent: timeSpent || 0,
-      zoomCount: zoomCount || 0,
+      timeSpent: Number(timeSpent || 0),
+      zoomCount: Number(zoomCount || 0),
       action,
     });
 
-    res.status(201).json(activity);
+    res.json({ message: "Tracked successfully" });
+
   } catch (err) {
-    console.log("TRACK ERROR:", err);
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 });

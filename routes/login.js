@@ -1,93 +1,81 @@
-  // const express = require("express");
-  // const bcrypt = require("bcryptjs");
-  // const jwt = require("jsonwebtoken");
-  // const User = require("../models/User");
-  // const router = express.Router();
+// const express = require("express");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
+// const User = require("../models/User");
 
-  // router.post("/", async (req, res) => {
-  //   try {
-  //     const { email, password } = req.body;
+// const router = express.Router();
 
-  //     const user = await User.findOne({ email });
-  //     if (!user) return res.status(400).json({ message: "Invalid credentials" });
+// router.post("/", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
 
-  //     const isMatch = await bcrypt.compare(password, user.password);
-  //     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+//     const user = await User.findOne({ email });
+//     if (!user)
+//       return res.status(400).json({ message: "Invalid credentials" });
 
-  //     const token = jwt.sign(
-  //       { id: user._id, email: user.email },
-  //       process.env.JWT_SECRET || "secretKey123",  // ✅ env se le raha hai
-  //       { expiresIn: "7d" }
-  //     );
+//     if (!user.isVerified)
+//       return res.status(400).json({ message: "Please verify OTP first" });
 
-  //     res.json({
-  //       message: "Login successful",
-  //       user: {
-  //         id: user._id,
-  //         name: user.name,
-  //         email: user.email,
-  //         phone: user.phone,
-  //         avatar: user.name.charAt(0),
-  //       },
-  //       token,
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).json({ message: "Server error" });
-  //   }
-  // });
+//     const match = await bcrypt.compare(password, user.password);
+//     if (!match)
+//       return res.status(400).json({ message: "Invalid credentials" });
 
-  // module.exports = router;
+//     const token = jwt.sign(
+//       { id: user._id },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "7d" }
+//     );
 
+//     res.json({
+//       message: "Login successful",
+//       token,
+//       user,
+//     });
 
+//   } catch (err) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
+// module.exports = router;
 
 
-  const express = require("express");
+const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
-const Activity = require("../models/Activity"); // 🔥 ADD THIS
+const Activity = require("../models/Activity");
 
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user)
-      return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ message: "Invalid credentials" });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(400).json({ message: "Invalid credentials" });
+
+    // 🔥 TRACK LOGIN ACTIVITY
+    await Activity.create({
+      userId: user._id,
+      action: "login",
+      timeSpent: 1,
+      zoomCount: 0,
+    });
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET || "secretKey123",
+      { id: user._id },
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    // 🔥 ADD ACTIVITY HERE
-    await Activity.create({
-      user: user.name,
-      action: "Logged in",
-    });
-
-    res.json({
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        avatar: user.name.charAt(0),
-      },
-      token,
-    });
+    res.json({ token, user });
 
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
