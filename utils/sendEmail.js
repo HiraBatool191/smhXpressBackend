@@ -1,3 +1,4 @@
+// utils/sendEmail.js
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -6,6 +7,15 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+});
+
+// ✅ Connection verify karo server start hone par
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ Email transporter error:", error.message);
+  } else {
+    console.log("✅ Email server is ready");
+  }
 });
 
 const sendOTPEmail = async (toEmail, otp) => {
