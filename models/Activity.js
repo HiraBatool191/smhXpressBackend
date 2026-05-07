@@ -7,13 +7,21 @@ const activitySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    productId: String,
+
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+
     productName: String,
+
+    action: {
+      type: String,
+      enum: ["view_end", "zoom", "add_to_cart", "remove_from_cart"],
+    },
 
     timeSpent: { type: Number, default: 0 },
     zoomCount: { type: Number, default: 0 },
-
-    action: String,
   },
   { timestamps: true }
 );

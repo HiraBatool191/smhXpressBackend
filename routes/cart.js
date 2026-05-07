@@ -5,17 +5,18 @@ const Activity = require("../models/Activity");
 // ================= ADD TO CART =================
 router.post("/add", async (req, res) => {
   try {
-    const { user, product } = req.body;
+    const { userId, productId, productName } = req.body;
 
     await Activity.create({
-      user,
-      action: `Added ${product} to cart`,
+      userId,
+      productId,
+      productName,
+      action: "add_to_cart",
     });
 
-    res.json({ message: "Added to cart successfully" });
+    res.json({ message: "Added to cart" });
 
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Cart error" });
   }
 });
@@ -23,11 +24,13 @@ router.post("/add", async (req, res) => {
 // ================= REMOVE FROM CART =================
 router.post("/remove", async (req, res) => {
   try {
-    const { user, product } = req.body;
+    const { userId, productId, productName } = req.body;
 
     await Activity.create({
-      user,
-      action: `Removed ${product} from cart`,
+      userId,
+      productId,
+      productName,
+      action: "remove_from_cart",
     });
 
     res.json({ message: "Removed from cart" });

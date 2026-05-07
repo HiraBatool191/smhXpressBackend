@@ -14,35 +14,56 @@ router.get("/users-with-activity", async (req, res) => {
     const result = await Promise.all(
       users.map(async (user) => {
 
-        const activities = await Activity.find({ userId: user._id });
+        const activities = await Activity.find({
+          userId: user._id,
+        });
 
-        const timeSpent = activities.reduce(
-          (sum, a) => sum + Number(a.timeSpent || 0),
-          0
-        );
+        if (!activities.length) {
+          return {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            products: [],
+          };
+        }
 
-        const zoomCount = activities.reduce(
-          (sum, a) => sum + Number(a.zoomCount || 0),
-          0
-        );
+        const map = new Map();
 
-        // 🔥 FIX: ALL PRODUCTS SHOW
-        const productNames = activities.length
-          ? [...new Set(activities.map(a => a.productName))].join(", ")
-          : "—";
+      activities.forEach((a) => {
+  const key = a.productName || "Unknown";
+
+  if (!map.has(key)) {
+    map.set(key, {
+      productName: key,
+      timeSpent: 0,
+      zoomCount: 0,
+      actions: [],
+    });
+  }
+
+  const item = map.get(key);
+
+  item.timeSpent += a.timeSpent || 0;
+
+  // ✅ FIXED ZOOM LOGIC
+  if (a.action === "zoom") {
+    item.zoomCount += 1;
+  }
+
+  item.actions.push(a.action);
+});
 
         return {
           _id: user._id,
           name: user.name,
           email: user.email,
-          timeSpent,
-          zoomCount,
-          productName: productNames,
+          products: Array.from(map.values()),
         };
       })
     );
 
     res.json(result);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

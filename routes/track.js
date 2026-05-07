@@ -1,54 +1,17 @@
-// const express = require("express");
-// const Activity = require("../models/Activity");
-// const router = express.Router();
-
-// router.post("/track", async (req, res) => {
-//   try {
-//     const {
-//       userId,
-//       productId,
-//       productName,
-//       timeSpent = 0,
-//       zoomCount = 0,
-//       action,
-//     } = req.body;
-
-//     if (!userId) {
-//       return res.status(400).json({ message: "userId required" });
-//     }
-
-//     const activity = await Activity.create({
-//       userId,
-//       productId,
-//       productName,
-//       timeSpent: Number(timeSpent),
-//       zoomCount: Number(zoomCount),
-//       action,
-//     });
-
-//     res.json(activity);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// module.exports = router;
-
-
-// routes/track.js
 const express = require("express");
-const Activity = require("../models/Activity");
 const router = express.Router();
+const Activity = require("../models/Activity");
 
+// ================= TRACK ANY ACTIVITY =================
 router.post("/", async (req, res) => {
   try {
     const {
       userId,
       productId,
       productName,
+      action,
       timeSpent,
       zoomCount,
-      action,
     } = req.body;
 
     if (!userId) {
@@ -58,17 +21,16 @@ router.post("/", async (req, res) => {
     await Activity.create({
       userId,
       productId,
-      productName,
+      productName: productName || "Unknown Product",
+      action,
       timeSpent: Number(timeSpent || 0),
       zoomCount: Number(zoomCount || 0),
-      action,
     });
 
-    res.json({ message: "Tracked successfully" });
+    res.json({ success: true });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
