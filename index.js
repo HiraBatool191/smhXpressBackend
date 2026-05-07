@@ -67,7 +67,7 @@ app.use("/api/cart", cartRoute);
 app.use("/api/send-otp", sendOtpRoute);
 app.use("/api/verify-otp", verifyOtpRoute);
 app.use("/api/reset-password", resetPasswordRoute);
-app.use("/api", trackRoute);
+app.use("/api/track", trackRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/payment", paymentRoute);
 app.use("/api/admin/signup", adminSignupRoute);

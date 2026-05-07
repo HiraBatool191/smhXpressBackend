@@ -15,56 +15,33 @@ router.get("/users-with-activity", async (req, res) => {
       users.map(async (user) => {
 
         const activities = await Activity.find({
-          userId: user._id,
-        });
-
-        if (!activities.length) {
-          return {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            products: [],
-          };
-        }
-
-        const map = new Map();
-
-      activities.forEach((a) => {
-  const key = a.productName || "Unknown";
-
-  if (!map.has(key)) {
-    map.set(key, {
-      productName: key,
-      timeSpent: 0,
-      zoomCount: 0,
-      actions: [],
-    });
-  }
-
-  const item = map.get(key);
-
-  item.timeSpent += a.timeSpent || 0;
-
-  // ✅ FIXED ZOOM LOGIC
-  if (a.action === "zoom") {
-    item.zoomCount += 1;
-  }
-
-  item.actions.push(a.action);
-});
+          userId: user._id, // ✅ now correct match
+        }).sort({ createdAt: -1 });
 
         return {
           _id: user._id,
           name: user.name,
           email: user.email,
-          products: Array.from(map.values()),
+          phone: user.phone,
+
+          products: activities.map((a) => ({
+            productId: a.productId,
+            productName: a.productName,
+            action: a.action,
+            timeSpent: a.timeSpent,
+            zoomCount: a.zoomCount,
+            createdAt: a.createdAt,
+          })),
         };
       })
     );
 
+    console.log("FINAL USERS:", result); // 🔥 DEBUG IMPORTANT
+
     res.json(result);
 
   } catch (err) {
+    console.log("USER ACTIVITY ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 });

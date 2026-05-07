@@ -1,35 +1,25 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const Activity = require("../models/Activity");
 
-// ================= TRACK ANY ACTIVITY =================
 router.post("/", async (req, res) => {
   try {
-    const {
-      userId,
-      productId,
-      productName,
-      action,
-      timeSpent,
-      zoomCount,
-    } = req.body;
+    console.log("RAW BODY:", req.body);
 
-    if (!userId) {
-      return res.status(400).json({ message: "userId required" });
-    }
-
-    await Activity.create({
-      userId,
-      productId,
-      productName: productName || "Unknown Product",
-      action,
-      timeSpent: Number(timeSpent || 0),
-      zoomCount: Number(zoomCount || 0),
+    const activity = await Activity.create({
+      userId: req.body.userId,
+      productId: req.body.productId,
+      productName: req.body.productName,
+      action: req.body.action,
+      timeSpent: req.body.timeSpent || 0,
+      zoomCount: req.body.zoomCount || 0,
     });
 
-    res.json({ success: true });
+    res.json(activity);
 
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });
