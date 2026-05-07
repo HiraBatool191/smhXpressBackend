@@ -5,18 +5,27 @@ const Message = require("../models/Message");
 // ================= SEND MESSAGE =================
 router.post("/send", async (req, res) => {
   try {
-    const { senderId, receiverId, message, from } = req.body;
+    const { senderId, receiverId, message } = req.body;
 
-    const msg = await Message.create({
+    if (!senderId || !receiverId || !message) {
+      return res.status(400).json({
+        error: "Missing data",
+      });
+    }
+
+    const newMessage = await Message.create({
       senderId,
       receiverId,
       message,
-      from,
+      createdAt: new Date(),
     });
 
-    res.json(msg);
+    res.status(201).json(newMessage);
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      error: err.message,
+    });
   }
 });
 
@@ -27,14 +36,23 @@ router.get("/:userId/:adminId", async (req, res) => {
 
     const messages = await Message.find({
       $or: [
-        { senderId: userId, receiverId: adminId },
-        { senderId: adminId, receiverId: userId },
+        {
+          senderId: userId,
+          receiverId: adminId,
+        },
+        {
+          senderId: adminId,
+          receiverId: userId,
+        },
       ],
     }).sort({ createdAt: 1 });
 
     res.json(messages);
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      error: err.message,
+    });
   }
 });
 
