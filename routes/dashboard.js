@@ -5,8 +5,7 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 const Activity = require("../models/Activity");
 
-
-// ===================== USERS WITH ACTIVITY =====================
+// ===================== USERS WITH ACTIVITY ====================
 router.get("/users-with-activity", async (req, res) => {
   try {
     const users = await User.find();
@@ -15,37 +14,33 @@ router.get("/users-with-activity", async (req, res) => {
       users.map(async (user) => {
 
         const activities = await Activity.find({
-          userId: user._id, // ✅ now correct match
+          userId: user._id,
         }).sort({ createdAt: -1 });
 
         return {
           _id: user._id,
           name: user.name,
           email: user.email,
-          phone: user.phone,
 
           products: activities.map((a) => ({
             productId: a.productId,
-            productName: a.productName,
-            action: a.action,
-            timeSpent: a.timeSpent,
-            zoomCount: a.zoomCount,
+            productName: a.productName || "Unknown Product",
+            action: a.action || "view",
+            timeSpent: Number(a.timeSpent ?? 0),
+            zoomCount: Number(a.zoomCount ?? 0),
             createdAt: a.createdAt,
           })),
         };
       })
     );
 
-    console.log("FINAL USERS:", result); // 🔥 DEBUG IMPORTANT
-
     res.json(result);
 
   } catch (err) {
-    console.log("USER ACTIVITY ERROR:", err);
-    res.status(500).json({ error: err.message });
+    console.log(err);
+    res.status(500).json({ message: err.message });
   }
 });
-
 // ===================== STATS (🔥 FIXED REAL ACTIVE USERS) =====================
 router.get("/stats", async (req, res) => {
   try {
@@ -65,12 +60,12 @@ router.get("/stats", async (req, res) => {
     ]);
 
     // 🔥 VALID USERS ONLY
-    const userIds = users.map(u => u._id.toString());
+    const userIds = users.map((u) => u._id.toString());
 
     const activeUsers = activityData.filter(
       (a) =>
         userIds.includes(a._id.toString()) &&
-        (a.totalTime > 0 || a.totalZoom > 0)
+        (a.totalTime > 0 || a.totalZoom > 0),
     );
 
     res.json({
@@ -79,12 +74,10 @@ router.get("/stats", async (req, res) => {
       orders: Math.floor(productsCount * 1.5),
       revenue: productsCount * 500,
     });
-
   } catch (error) {
     res.status(500).json({ message: "Stats error", error });
   }
 });
-
 
 // ===================== USERS =====================
 router.get("/users", async (req, res) => {
@@ -96,28 +89,21 @@ router.get("/users", async (req, res) => {
   }
 });
 
-
 // ===================== TOP PRODUCTS =====================
 router.get("/top-products", async (req, res) => {
   try {
-    const products = await Product.find()
-      .sort({ views: -1 })
-      .limit(5);
+    const products = await Product.find().sort({ views: -1 }).limit(5);
 
     res.json(products);
-
   } catch (error) {
     res.status(500).json({ message: "Products error", error });
   }
 });
 
-
 // ===================== ACTIVITY =====================
 router.get("/activity", async (req, res) => {
   try {
-    const data = await Activity.find()
-      .sort({ createdAt: -1 })
-      .limit(20);
+    const data = await Activity.find().sort({ createdAt: -1 }).limit(20);
 
     const result = data.map((item) => ({
       date: item.createdAt.toISOString().split("T")[0],
@@ -126,12 +112,10 @@ router.get("/activity", async (req, res) => {
     }));
 
     res.json(result);
-
   } catch (error) {
     res.status(500).json({ message: "Activity error", error });
   }
 });
-
 
 // ===================== CHART =====================
 router.get("/chart", async (req, res) => {
@@ -160,9 +144,8 @@ router.get("/chart", async (req, res) => {
       data.map((item) => ({
         name: item._id,
         value: item.count,
-      }))
+      })),
     );
-
   } catch (err) {
     res.status(500).json({ message: "Chart error" });
   }
