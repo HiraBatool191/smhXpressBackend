@@ -14,7 +14,7 @@ router.get("/users-with-activity", async (req, res) => {
       users.map(async (user) => {
 
         const activities = await Activity.find({
-          userId: user._id,
+          userId: user._id.toString(), // ✅ FIXED MATCH
         }).sort({ createdAt: -1 });
 
         return {
@@ -26,8 +26,8 @@ router.get("/users-with-activity", async (req, res) => {
             productId: a.productId,
             productName: a.productName || "Unknown Product",
             action: a.action || "view",
-            timeSpent: Number(a.timeSpent ?? 0),
-            zoomCount: Number(a.zoomCount ?? 0),
+            timeSpent: Number(a.timeSpent || 0),
+            zoomCount: Number(a.zoomCount || 0),
             createdAt: a.createdAt,
           })),
         };
@@ -35,7 +35,6 @@ router.get("/users-with-activity", async (req, res) => {
     );
 
     res.json(result);
-
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
