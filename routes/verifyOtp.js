@@ -1,37 +1,3 @@
-// const express = require("express");
-// const User = require("../models/User");
-
-// const router = express.Router();
-
-// router.post("/", async (req, res) => {
-//   try {
-//     const { email, otp } = req.body;
-
-//     const user = await User.findOne({ email });
-//     if (!user) return res.status(400).json({ message: "User not found" });
-
-//     if (user.otp !== otp)
-//       return res.status(400).json({ message: "Invalid OTP" });
-
-//     if (user.otpExpiry < Date.now())
-//       return res.status(400).json({ message: "OTP expired" });
-
-//     user.isVerified = true;
-//     user.otp = null;
-//     user.otpExpiry = null;
-
-//     await user.save();
-
-//     res.json({ message: "OTP verified successfully" });
-
-//   } catch (err) {
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
-
-// module.exports = router;
-
-
 const express = require("express");
 const User = require("../models/User");
 
@@ -39,17 +5,31 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    let { email, otp } = req.body;
+    console.log("VERIFY OTP BODY:", req.body); // 🔥 DEBUG
+
+    let { email, otp } = req.body || {};
+
+    // 🔥 SAFE CHECK (must first)
+    if (!email || !otp) {
+      return res.status(400).json({
+        message: "Email and OTP required",
+      });
+    }
+
+    email = String(email).trim();
+    otp = String(otp).trim();
 
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // ✅ FIX: force same type comparison
-    otp = String(otp);
+    if (!user.otp) {
+      return res.status(400).json({ message: "OTP not generated" });
+    }
 
-    if (!user.otp || user.otp !== otp) {
+    if (String(user.otp) !== otp) {
       return res.status(400).json({ message: "Invalid OTP" });
     }
 
@@ -57,17 +37,20 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "OTP expired" });
     }
 
+    // ✅ SUCCESS
     user.isVerified = true;
     user.otp = null;
     user.otpExpiry = null;
 
     await user.save();
 
-    res.json({ message: "OTP verified successfully" });
+    return res.json({
+      message: "OTP verified successfully",
+    });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    console.log("OTP ERROR:", err);
+    return res.status(500).json({ message: "Server error" });
   }
 });
 
