@@ -59,6 +59,7 @@ const paymentRoute = require("./routes/payment");
 const adminSignupRoute = require("./routes/adminSignup");
 const adminLoginRoute = require("./routes/adminLogin");
 const contactRoute = require("./routes/contact");
+const imageSearchRoute = require("./routes/imageSearch");
 
 // ========== ROUTE MIDDLEWARE ==========
 app.use("/api/signup", signupRoute);
@@ -76,6 +77,7 @@ app.use("/api/payment", paymentRoute);
 app.use("/api/admin/signup", adminSignupRoute);
 app.use("/api/admin/login", adminLoginRoute);
 app.use("/api/admin/login", adminLoginRoute);
+app.use("/api/image-search", imageSearchRoute);
 
 // ================= HOME =================
 
