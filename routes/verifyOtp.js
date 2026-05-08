@@ -5,16 +5,23 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { email, otp } = req.body;
+    let { email, otp } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
 
-    if (user.otp !== otp)
+    // ✅ FIX: force same type comparison
+    otp = String(otp);
+
+    if (!user.otp || user.otp !== otp) {
       return res.status(400).json({ message: "Invalid OTP" });
+    }
 
-    if (user.otpExpiry < Date.now())
+    if (user.otpExpiry && user.otpExpiry < Date.now()) {
       return res.status(400).json({ message: "OTP expired" });
+    }
 
     user.isVerified = true;
     user.otp = null;
@@ -25,6 +32,7 @@ router.post("/", async (req, res) => {
     res.json({ message: "OTP verified successfully" });
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
