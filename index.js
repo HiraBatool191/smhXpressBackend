@@ -11,6 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ================= HTTP SERVER =================
 const server = http.createServer(app);
@@ -74,7 +75,9 @@ app.use("/api/admin/signup", adminSignupRoute);
 app.use("/api/admin/login", adminLoginRoute);
 
 // ================= HOME =================
+
 app.get("/", (req, res) => {
+  console.log("Backend hit");
   res.send("Backend is working!");
 });
 
@@ -83,4 +86,5 @@ const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  
 });

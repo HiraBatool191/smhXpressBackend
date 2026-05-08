@@ -8,34 +8,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify((error) => {
-  if (error) {
-    console.log("❌ Email error:", error);
-  } else {
-    console.log("✅ Email server ready");
-  }
-});
-
 const sendOTPEmail = async (toEmail, otp) => {
   try {
     await transporter.sendMail({
-      from: `"SMH Xpress" <${process.env.EMAIL_USER}>`,
+      from: process.env.EMAIL_USER,
       to: toEmail,
-      subject: "OTP Verification Code",
+      subject: "OTP Verification",
       html: `
-        <div style="font-family:Arial;padding:20px">
-          <h2>🔐 OTP Verification</h2>
-          <h1 style="color:red">${otp}</h1>
+        <div>
+          <h2>Your OTP Code</h2>
+          <h1>${otp}</h1>
           <p>Valid for 10 minutes</p>
         </div>
       `,
     });
 
-    console.log("📨 Email sent");
-    return true;
+    console.log("OTP SENT:", otp);
+
   } catch (err) {
-    console.log("❌ EMAIL ERROR:", err.message);
-    return false;
+    console.log("EMAIL ERROR:", err.message);
   }
 };
 
