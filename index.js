@@ -58,9 +58,11 @@ const messageRoute = require("./routes/messages");
 const paymentRoute = require("./routes/payment");
 const adminSignupRoute = require("./routes/adminSignup");
 const adminLoginRoute = require("./routes/adminLogin");
+const contactRoute = require("./routes/contact");
 
 // ========== ROUTE MIDDLEWARE ==========
 app.use("/api/signup", signupRoute);
+app.use("/api/signup", contactRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/products", productsRoute);
 app.use("/api/dashboard", dashboardRoute);
@@ -72,6 +74,7 @@ app.use("/api/track", trackRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/payment", paymentRoute);
 app.use("/api/admin/signup", adminSignupRoute);
+app.use("/api/admin/login", adminLoginRoute);
 app.use("/api/admin/login", adminLoginRoute);
 
 // ================= HOME =================
