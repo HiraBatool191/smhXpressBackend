@@ -62,7 +62,7 @@ const contactRoute = require("./routes/contact");
 
 // ========== ROUTE MIDDLEWARE ==========
 app.use("/api/signup", signupRoute);
-app.use("/api/signup", contactRoute);
+app.use("/api/contact", contactRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/products", productsRoute);
 app.use("/api/dashboard", dashboardRoute);
