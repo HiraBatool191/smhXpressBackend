@@ -30,9 +30,9 @@ router.post("/", async (req, res) => {
   }
 
   // ================= PRICE =================
-  if (q.includes("cheap") || q.includes("budget")) {
-    maxPrice = 10000;
-  }
+ if (q.includes("cheap") || q.includes("budget")) {
+  maxPrice = 60000;
+}
 
   if (q.includes("mid")) {
     minPrice = 10000;
@@ -49,8 +49,9 @@ router.post("/", async (req, res) => {
     query.category = category;
   }
 
+ if (minPrice || maxPrice) {
   query.price = { $gte: minPrice, $lte: maxPrice };
-
+}
   // search text
   if (q) {
     query.$or = [

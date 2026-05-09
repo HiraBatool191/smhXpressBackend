@@ -81,7 +81,7 @@ app.use("/api/admin/login", adminLoginRoute);
 app.use("/api/admin/login", adminLoginRoute);
 app.use("/api/image-search", imageSearchRoute);
 app.use("/ai-search", aiSearchRoute);
-app.use("/api/text-to-sql", textSqlRoute);
+app.use("/text-to-sql", textSqlRoute);
 
 // ================= HOME =================
 
