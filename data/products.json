@@ -1,128 +1,107 @@
 [
   {
-    "id": 1,
     "name": "Laptop",
     "price": 50000,
     "category": "Electronics",
     "description": "High-performance laptop for multitasking.",
-    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 2,
     "name": "Smartphone",
     "price": 25000,
     "category": "Electronics",
     "description": "Modern smartphone with AMOLED display.",
-    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 3,
     "name": "Headphones",
     "price": 6000,
     "category": "Electronics",
     "description": "Noise-cancelling headphones.",
-    "image": "https://images.unsplash.com/photo-1580894894514-4d485b73c8f7"
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 4,
     "name": "Office Chair",
     "price": 8000,
     "category": "Furniture",
     "description": "Ergonomic office chair.",
-    "image": "https://images.unsplash.com/photo-1582582494700-64c1f6b6d93b"
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 5,
     "name": "Desk Table",
     "price": 12000,
     "category": "Furniture",
     "description": "Durable wooden desk.",
-    "image": "https://images.unsplash.com/photo-1582582494711-39c5fcf2ebcd"
+    "image": "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 6,
     "name": "Bookshelf",
     "price": 7000,
     "category": "Furniture",
     "description": "5-tier modern bookshelf.",
-    "image": "https://images.unsplash.com/photo-1582582494720-2f7bcb59d780"
+    "image": "https://images.unsplash.com/photo-1588279102060-1c3db5b8b7d5?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 7,
     "name": "T-shirt",
     "price": 1200,
     "category": "Clothing",
     "description": "Comfortable cotton t-shirt.",
-    "image": "https://images.unsplash.com/photo-1520975910547-8a0e7ffefcf2"
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 8,
     "name": "Sneakers",
     "price": 4000,
     "category": "Clothing",
     "description": "Stylish everyday sneakers.",
-    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 9,
     "name": "Backpack",
     "price": 3000,
     "category": "Accessories",
     "description": "Spacious travel backpack.",
-    "image": "https://images.unsplash.com/photo-1593032465170-bd5a7f34b0f3"
+    "image": "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 10,
     "name": "Sunglasses",
     "price": 1500,
     "category": "Accessories",
     "description": "UV-protected stylish sunglasses.",
-    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083"
+    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 11,
     "name": "Coffee Maker",
     "price": 9000,
     "category": "Home Appliances",
     "description": "Automatic coffee machine.",
-    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 12,
     "name": "Air Fryer",
     "price": 11000,
     "category": "Home Appliances",
     "description": "Healthy oil-free cooking.",
-    "image": "https://images.unsplash.com/photo-1604908176997-431c85c5c3f3"
+    "image": "https://images.unsplash.com/photo-1585515656973-8f6f59d4c148?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 13,
     "name": "Football",
     "price": 2000,
     "category": "Sports",
     "description": "Professional football.",
-    "image": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d"
+    "image": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    "id": 14,
     "name": "Cricket Bat",
     "price": 3500,
     "category": "Sports",
     "description": "Premium cricket bat.",
-    "image": "https://images.unsplash.com/photo-1593341646782-e0b495cff86d"
+    "image": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1200&auto=format&fit=crop"
   },
-
   {
-    "id": 15,
     "name": "Smartwatch",
     "price": 10000,
     "category": "Electronics",
     "description": "Fitness tracking smartwatch.",
-    "image": "https://images.unsplash.com/photo-1598887142480-4b14d90a5c41"
+    "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=1200&auto=format&fit=crop"
   }
 ]
