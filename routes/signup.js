@@ -17,9 +17,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const otp = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     const hashedPassword = await bcrypt.hash(password, 8);
 
@@ -34,13 +32,17 @@ router.post("/", async (req, res) => {
     });
 
     // email background me bhejo
-    sendOTPEmail(email, otp);
+    try {
+      await sendOTPEmail(email, otp);
+    } catch (emailErr) {
+      console.error("Email send failed:", emailErr);
+      return res.status(500).json({ message: "Failed to send OTP email" });
+    }
 
     res.json({
       message: "Signup successful. OTP sent.",
       user,
     });
-
   } catch (err) {
     console.log(err);
 

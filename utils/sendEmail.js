@@ -2,10 +2,11 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+  // ✅ Yeh add karo
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
 });
 
 const sendOTPEmail = async (toEmail, otp) => {
@@ -25,7 +26,6 @@ const sendOTPEmail = async (toEmail, otp) => {
 
     console.log("✅ Email sent to:", toEmail);
     return true;
-
   } catch (err) {
     console.log("❌ EMAIL ERROR:", err.message); // exact error dekho
     return false;
