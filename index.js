@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://smh-express.vercel.app/", // apni live frontend URL daalo
+    "https://smh-express.vercel.app",
   ],
   credentials: true,
 }));
